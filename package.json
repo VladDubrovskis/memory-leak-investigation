@@ -5,7 +5,8 @@
   "main": "fetch-ads.js",
   "dependencies": {
     "hogan.js": "^3.0.2",
-    "node-fetch": "^1.0.6"
+    "node-fetch": "^1.0.6",
+    "prettysize": "0.0.3"
   },
   "devDependencies": {},
   "scripts": {

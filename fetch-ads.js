@@ -4,6 +4,7 @@ var http = require('http');
 var fetch = require('node-fetch');
 var fs = require('fs');
 var hogan = require('hogan.js');
+var prettysize = require('prettysize');
 
 // compile index.mu into a template for rendering
 var page = hogan.compile(fs.readFileSync('index.mu').toString());
@@ -43,9 +44,10 @@ function serve() {
 
 // create a new correlator value for the ad call
 function getCorrelator() {
-	function genRand(sig){
-	 return parseInt(Math.random() * Math.pow(10, sig), 10);
+	function genRand(sig) {
+		return parseInt(Math.random() * Math.pow(10, sig), 10);
 	}
+
 	return ('' + genRand(5) + genRand(5) + genRand(6) + '00000').substr(0, 16);
 }
 
@@ -54,8 +56,8 @@ function onError(err) {
 	console.log(err);
 }
 
-function resolve(res){
-	if(res.text){
+function resolve(res) {
+	if (res.text) {
 		return res.text();
 	} else {
 		return res;
@@ -65,12 +67,12 @@ function resolve(res){
 function getJSON(body) {
 	// pull the json from the SRA request body
 	/* jshint evil: true */
-	if (body.length){
+	if (body.length) {
 		body = body
 			.trim()
 			.replace(/(^callbackProxy\()|(\);$)/g, '');
 
-		return new Function( 'return ' + body )();
+		return new Function('return ' + body)();
 	} else {
 		throw new Error('Invalid repsonse');
 	}
@@ -80,12 +82,12 @@ function parseResponse(data) {
 	// parse ad info into a script tags
 	var scripts = '';
 	console.log('render ' + data.length + ' ads');
-	data.forEach(function (slot) {
+	data.forEach(function(slot) {
 		var name = Object.keys(slot)[0];
 		slot = slot[name];
-		if (!slot['_empty_']){
+		if (!slot._empty_) {
 			//var path = name + '/' + slot['_width_'] + '/' + slot['_height_'];
-			slot['_html_'] = encodeURIComponent(slot['_html_']);
+			slot._html_ = encodeURIComponent(slot._html_);
 			scripts += '<script name="' + name + '" type="application/json">';
 			scripts += JSON.stringify(slot);
 			scripts += '</script>';
@@ -97,10 +99,10 @@ function parseResponse(data) {
 	return scripts;
 }
 
-function render(res, data){
+function render(res, data) {
 	// render the page
 	res.writeHead(200, { 'Content-Type': 'text/html' });
-	console.log('page write', data.length);
+	console.log('page write', prettysize(data.length));
 	res.write(page.render({content: data}));
 	console.log('page end');
 	res.end();
