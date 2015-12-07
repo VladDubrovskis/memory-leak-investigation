@@ -14,6 +14,7 @@
     <header>
       {{{leaderboard}}}
       <h1>{{ip}}</h1>
+      <button>Refresh</button>
     </header>
     <section id="main">
       <p>Fondue hard cheese cut the cheese. When the cheese comes out everybody's happy boursin cauliflower cheese cheese strings mozzarella fromage red leicester croque monsieur. Who moved my cheese pecorino macaroni cheese cheeseburger cheesy feet cheese triangles chalk and cheese ricotta. Brie pecorino cheese on toast roquefort ricotta fromage frais dolcelatte pecorino. St. agur blue cheese st. agur blue cheese when the cheese comes out everybody's happy mozzarella danish fontina everyone loves blue castello paneer. Fondue halloumi rubber cheese feta fondue when the cheese comes out everybody's happy danish fontina roquefort. Mascarpone jarlsberg pecorino mascarpone pepper jack cow squirty cheese red leicester. Cheese strings swiss the big cheese.</p>
@@ -34,7 +35,15 @@
         name = item.parentNode.parentNode.parentNode.getAttribute('data-o-ads-name')
         console.log(name + ':', JSON.parse(item.innerText));
       });
+
       document.body.dispatchEvent(new CustomEvent('o.DOMContentLoaded', {bubbles: true, cancelable: false, detail: null}));
+      document.querySelector('button').addEventListener('click', function () {
+        oAds.slots.forEach(function (slot) {
+          slot.fire('refresh', {targeting: {rfrsh: 'true'}});
+          console.log('refresh');
+        });
+      });
+      document.addEventListener('oAds.refresh', function (event) { event.detail.slot.container.removeAttribute('style');});
     </script>
   </body>
 </html>
