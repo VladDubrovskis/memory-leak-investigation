@@ -9,10 +9,12 @@
     "prettysize": "0.0.3"
   },
   "devDependencies": {
+    "bower": "^1.7.0",
     "browserify": "^12.0.1",
     "debowerify": "^1.3.1"
   },
   "scripts": {
+    "install": "bower install",
     "start": "node fetch-ads.js",
     "build": "browserify -t debowerify --debug pre.js > built.js",
     "test": "echo \"Error: no test specified\" && exit 1"

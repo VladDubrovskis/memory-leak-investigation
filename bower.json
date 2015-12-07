@@ -1,0 +1,22 @@
+{
+  "name": "prerender-gpt",
+  "description": "",
+  "main": "fetch-ads.js",
+  "authors": [
+    "Robin Marr <robin.marr@ft.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "o-ads": "http://git.svc.ft.com/scm/ads/o-ads.git#pre-rendered"
+  }
+}
