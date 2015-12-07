@@ -1,0 +1,46 @@
+html{
+	background: #fff1e0;
+}
+
+body {
+	padding: 1em;
+	width: 65em;
+	margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+	flex-wrap: wrap;
+}
+
+h1 {
+	width: 100%;
+	text-align: center;
+	margin: 1em 0;
+}
+
+p {
+	margin: 1em 0;
+}
+
+section[data-o-ads-name] {
+	margin: 0;
+}
+
+.o-ads__inner a {
+	border: none;
+}
+
+aside {
+	float: right;
+	margin: 1em;
+}
+
+.o-ads__inner {
+	display: block !important;
+}
+
+.google_image_div {
+	position: static !important;
+}

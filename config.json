@@ -1,0 +1,17 @@
+{
+	"gpt": {
+		"network": 5887,
+		"site": "test.5887.origami",
+		"disableInitialLoad": true
+	},
+	"slots": {
+		"leaderboard": {
+			"formats": ["SuperLeaderboard", "Leaderboard"],
+			"server": "pre"
+		},
+		"halfpage": {
+			"formats": ["HalfPage"],
+			"server": "pre"
+		}
+	}
+}
