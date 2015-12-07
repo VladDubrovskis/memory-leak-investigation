@@ -48,4 +48,5 @@ Pros
 Cons
 - Page requests have to wait for ad call to complete
 - More complexity
-Note on ESI: if data is being sent to the cdn compressed this will have to be disabled which will increase bandwidth use and could further detriment page load time.
+
+**Note on ESI:** if data is being sent to the cdn compressed this will have to be disabled which will increase bandwidth use and could further detriment page load time.
