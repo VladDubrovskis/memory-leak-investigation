@@ -16,6 +16,8 @@
       <section class="o-ads" data-o-ads-name="leaderboard"></section>
     </header>
     <section id="main">
+      <center><button>Refresh</button></center>
+
       <p>Fondue hard cheese cut the cheese. When the cheese comes out everybody's happy boursin cauliflower cheese cheese strings mozzarella fromage red leicester croque monsieur. Who moved my cheese pecorino macaroni cheese cheeseburger cheesy feet cheese triangles chalk and cheese ricotta. Brie pecorino cheese on toast roquefort ricotta fromage frais dolcelatte pecorino. St. agur blue cheese st. agur blue cheese when the cheese comes out everybody's happy mozzarella danish fontina everyone loves blue castello paneer. Fondue halloumi rubber cheese feta fondue when the cheese comes out everybody's happy danish fontina roquefort. Mascarpone jarlsberg pecorino mascarpone pepper jack cow squirty cheese red leicester. Cheese strings swiss the big cheese.</p>
       <p>The big cheese boursin paneer. Fromage frais pepper jack emmental roquefort emmental parmesan lancashire lancashire. Cheese slices jarlsberg when the cheese comes out everybody's happy halloumi halloumi red leicester stinking bishop gouda. Cut the cheese fromage pecorino croque monsieur stinking bishop cheesy feet chalk and cheese port-salut. Stinking bishop halloumi taleggio stilton cow caerphilly cauliflower cheese feta. Cheeseburger croque monsieur who moved my cheese fromage everyone loves cheese and wine mozzarella cottage cheese. Say cheese cheese strings macaroni cheese swiss gouda edam pepper jack croque monsieur. Cheese and wine smelly cheese cut the cheese fondue rubber cheese blue castello.</p>
       <aside>
@@ -32,6 +34,13 @@
     <script>
       setTimeout(function () {document.body.dispatchEvent(new CustomEvent('o.DOMContentLoaded', {bubbles: true, cancelable: false, detail: null}));}, 1000);
       //document.body.dispatchEvent(new CustomEvent('o.DOMContentLoaded', {bubbles: true, cancelable: false, detail: null}));
+      document.querySelector('button').addEventListener('click', function () {
+        oAds.slots.forEach(function (slot) {
+          slot.fire('refresh', {targeting: {rfrsh: 'true'}});
+          console.log('refresh');
+        });
+      });
+      document.addEventListener('oAds.refresh', function (event) { event.detail.slot.container.removeAttribute('style');});
     </script>
   </body>
 </html>
