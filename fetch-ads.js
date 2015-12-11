@@ -6,6 +6,7 @@ var fs = require('fs');
 var qs = require('querystring');
 var hogan = require('hogan.js');
 var prettysize = require('prettysize');
+var browserify = require('browserify');
 
 // configuration stuff
 var adsConfig = require('./config.json');
@@ -18,21 +19,17 @@ var slotTmpl = hogan.compile(fs.readFileSync('slot.mu').toString());
 
 // read other files
 var standard = fs.readFileSync('./standard.html');
-var js = fs.readFileSync('./built.js');
-var css = fs.readFileSync('./styles.css');
 
 var server = http.createServer(function(req, res) {
 
 	switch(true){
-		case (/built\.js$/.test(req.url)):
+		case (/js$/.test(req.url)):
 			res.writeHead(200, { 'Content-Type': 'application/javascript' });
-			res.write(js);
-			res.end();
+			browserify('./pre.js', {transform: 'debowerify', debug: true}).bundle().pipe(res);
 			break;
-		case (/styles\.css$/.test(req.url)):
+		case (/css$/.test(req.url)):
 			res.writeHead(200, { 'Content-Type': 'text/css' });
-			res.write(css);
-			res.end();
+			fs.createReadStream('./styles.css').pipe(res)
 			break;
 		case (req.url === '/standard'):
 			res.writeHead(200, { 'Content-Type': 'text/html' });

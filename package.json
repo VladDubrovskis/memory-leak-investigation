@@ -16,7 +16,6 @@
   "scripts": {
     "install": "bower install",
     "start": "node fetch-ads.js",
-    "build": "browserify -t debowerify --debug pre.js > built.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
