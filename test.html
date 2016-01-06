@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <title>not prerendered o-ads</title>
+  <meta name="viewport" content="initial-scale=1.0, width=device-width">
+  <link rel="shortcut icon" href="http://im.ft-static.com/m/icons/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://next-geebee.ft.com/hashed-assets/front-page/main-a94c7ec9.css">
+  <link rel="stylesheet" href="css" media="all">
+  <script src="js"></script>
+  </head>
+  <body>
+    <header>
+    </header>
+    <section id="main">
+      <center><button>Create advert</button></center>
+    </section>
+    <script data-o-ads-config="" type="application/json">
+    {"gpt":{"network":5887,"site":"test.5887.origami"}}
+    </script>
+    <script>
+    var counter = 0;
+    var names = [];
+    function isInArray(value, array) {
+  return array.indexOf(value) > -1;
+}
+
+    /*
+     * Construct a DFP ad into a container, and only expand the container if an ad is served into the spot
+     */
+      function _buildDFPAdvert(el, adClass, adDetails, callback) {
+      		oAds.slots.initSlot(el);
+      }
+      var lastSlotName;
+      function addSlot(){
+        counter++;
+        if(counter === 100) {
+          clearInterval(advertsInterval);
+        } else {
+          if(oAds.slots[lastSlotName]){
+            window.googletag.pubads().clear(oAds.slots[lastSlotName].gpt.slot);
+            oAds.slots.destroy(lastSlotName);
+            console.log(oAds.slots);
+
+            var advert = document.querySelector('.o-ads');
+            advert.remove();
+          }
+
+          var slotDiv = document.createElement('div');
+          slotDiv.className = 'o-ads';
+          slotDiv.setAttribute('data-o-ads-formats', 'SuperLeaderboard,Leaderboard,HalfPage,MediumRectangle');
+          document.body.appendChild(slotDiv);
+          _buildDFPAdvert(slotDiv);
+          var name = slotDiv.getAttribute('data-o-ads-name');
+          lastSlotName = name;
+          console.log('added', document.querySelectorAll('.o-ads').length, name, names);
+          if(isInArray(name, names)){
+            console.log('LEAK!!!!')
+          }
+          names.push(name);
+        }
+      }
+
+      var advertsInterval;
+      function kickOff() {
+        advertsInterval = setInterval(addSlot, 500)
+      };
+      document.body.dispatchEvent(new CustomEvent('o.DOMContentLoaded', {bubbles: true, cancelable: false, detail: null}));
+      document.querySelector('button').addEventListener('click', function () {
+        kickOff();
+      });
+
+
+
+
+
+    </script>
+  </body>
+</html>

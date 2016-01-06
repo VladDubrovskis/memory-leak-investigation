@@ -36,6 +36,13 @@ var server = http.createServer(function(req, res) {
 			res.write(standard);
 			res.end();
 			break;
+		case (req.url === '/test'):
+			// read other files
+			var test = fs.readFileSync('./test.html');
+			res.writeHead(200, { 'Content-Type': 'text/html' });
+			res.write(test);
+			res.end();
+			break;
 		case (req.url === '/'):
 			var cookies = qs.parse(req.headers.cookie, '; ', '=');
 			console.log('AYSC data:', cookies.AYSC);

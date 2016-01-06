@@ -35,12 +35,10 @@
         name = item.parentNode.parentNode.parentNode.getAttribute('data-o-ads-name')
         console.log(name + ':', JSON.parse(item.innerText));
       });
-
       document.body.dispatchEvent(new CustomEvent('o.DOMContentLoaded', {bubbles: true, cancelable: false, detail: null}));
       document.querySelector('button').addEventListener('click', function () {
         oAds.slots.forEach(function (slot) {
           slot.fire('refresh', {targeting: {rfrsh: 'true'}});
-          console.log('refresh');
         });
       });
       document.addEventListener('oAds.refresh', function (event) { event.detail.slot.container.removeAttribute('style');});
